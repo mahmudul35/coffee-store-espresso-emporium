@@ -26,6 +26,11 @@ async function run() {
 
     const coffeCollection = client.db("coffeDB").collection("coffes");
 
+    app.get("/coffees", async (req, res) => {
+      const cursor = coffeCollection.find();
+      const result = await cursor.toArray();
+      res.status(200).send(result);
+    });
     app.post("/coffees", async (req, res) => {
       console.log("Received POST request at /coffees");
       console.log("Request body:", req.body);
