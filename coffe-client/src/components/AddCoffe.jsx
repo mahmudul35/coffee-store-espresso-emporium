@@ -13,6 +13,18 @@ const AddCoffe = () => {
     const photo = form.photo.value;
     const data = { name, chef, supplier, taste, category, details, photo };
     console.log(data);
+    if (data) {
+      alert("Coffee added successfully");
+    }
+    fetch("http://localhost:3000/coffees", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
   return (
     <div className="lg:w-3/4 mx-auto">
@@ -25,7 +37,7 @@ const AddCoffe = () => {
         </p>
       </div>
       <div className="card bg-base-100 w-full shrink-0 shadow-2xl">
-        <form onSubmit={handleAddCoffee} className="card-body">
+        <form onSubmit={handleAddCoffee} action="POST" className="card-body">
           {/* form first row */}
           <div className="flex flex-col lg:flex-row gap-5">
             <div className="form-control flex-1">
